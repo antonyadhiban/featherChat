@@ -7,14 +7,32 @@ const memory = require('feathers-memory');
 // Creates an Express compatible Feathers application
 const app = express(feathers());
 
-    // Configure REST and real-time capabilities
-    app.configure(express.rest())
-    app.configure(socketio())
-    // REST endpoints can parse JSON
-    app.use(bodyParser.json())
-    // Add a messages API endpoint
-    app.use('/messages', db('messages'))
-    // Host the current folder
-    app.use('/', feathers.static(__dirname));
+// Parse HTTP JSON bodies
+app.use(express.json());
+// Parse URL-encoded params
+app.use(express.urlencoded({
+    extended: true
+}));
+// Add REST API support
+app.configure(express.rest());
+// Configure Socket.io real-time APIs
+app.configure(socketio());
+// Register a messages service with pagination
+app.use('/messages', memory({
+    paginate: {
+        default: 10,
+        max: 25
+    }
+}));
+// Register a nicer error handler than the default Express one
+app.use(express.errorHandler());
 
-app.listen(3030);
+// Add any new real-time connection to the `everybody` channel
+app.on('connection', connection => app.channel('everybody').join(connection));
+// Publish all events to the `everybody` channel
+app.publish(data => app.channel('everybody'));
+
+// Start the server
+app.listen(3030).on('listening', () =>
+    console.log('Feathers server listening on localhost:3030')
+);
