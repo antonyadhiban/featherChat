@@ -1,16 +1,20 @@
-var feathers = require('feathers');
-var bodyParser = require('body-parser');
-var db = require('feathers-nedb');
+const feathers = require('@feathersjs/feathers');
+const express = require('@feathersjs/express');
+const socketio = require('@feathersjs/socketio');
 
-var app = feathers()
+const memory = require('feathers-memory');
+
+// Creates an Express compatible Feathers application
+const app = express(feathers());
+
     // Configure REST and real-time capabilities
-    .configure(feathers.rest())
-    .configure(feathers.socketio())
+    app.configure(express.rest())
+    app.configure(socketio())
     // REST endpoints can parse JSON
-    .use(bodyParser.json())
+    app.use(bodyParser.json())
     // Add a messages API endpoint
-    .use('/messages', db('messages'))
+    app.use('/messages', db('messages'))
     // Host the current folder
-    .use('/', feathers.static(__dirname));
+    app.use('/', feathers.static(__dirname));
 
 app.listen(3030);
