@@ -17,6 +17,8 @@ app.use(express.urlencoded({
 app.configure(express.rest());
 // Configure Socket.io real-time APIs
 app.configure(socketio());
+// Host the current folder
+app.use('/', express.static(__dirname));
 // Register a messages service with pagination
 app.use('/messages', memory({
     paginate: {
