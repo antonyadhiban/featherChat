@@ -1,0 +1,19 @@
+{
+  "name": "featherchat-ramba",
+  "version": "0.0.1",
+  "description": "Firebase clone opportunity",
+  "main": "scripts.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antonyadhiban/featherChat.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/antonyadhiban/featherChat/issues"
+  },
+  "homepage": "https://github.com/antonyadhiban/featherChat#readme"
+}
