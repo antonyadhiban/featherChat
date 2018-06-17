@@ -35,7 +35,9 @@
     "@feathersjs/socketio": "^3.2.2",
     "compression": "^1.7.2",
     "cors": "^2.8.4",
+    "feathers-nedb": "^3.0.1",
     "helmet": "^3.12.1",
+    "nedb": "^1.8.0",
     "serve-favicon": "^2.5.0",
     "winston": "^3.0.0"
   },
